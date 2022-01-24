@@ -11,13 +11,17 @@
 
 Este é um clone dos jogos [term.ooo](https://term.ooo/) e [wordle](https://www.powerlanguage.co.uk/wordle/). Porém, você não precisa jogar só uma vez por dia.
 
-- Jogue quantas vezes quiser
-- Ajuste o tamanho das palavras entre 4 e 8 letras
-- Selecione a quantidade de tentativas
-- Escolha o nível de dificuldade das palavras:
+- **Jogue quantas vezes quiser**
+- **Ajuste o tamanho das palavras** entre 4 e 8 letras
+- **Selecione a quantidade de tentativas**
+- **Escolha o nível de dificuldade** das palavras:
     - Palavras muito usadas
     - Palavras medianamente usadas
     - Palavras pouco usadas
+
+Configurações             |  Jogo
+:-------------------------:|:-------------------------:
+![](/screenshot/setup.png)  |  ![](/screenshot/game.png)
 
 ### Como funciona?
 
