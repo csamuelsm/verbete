@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <title>verbete</title>
+        <meta charset="utf-8"/>
+        <meta name="description" content="Você tem várias tentativas para descobrir uma palavra. A cada tentativa, você saberá quais letras você acertou, quais estão fora do lugar e quais você errou. Você pode escolher o tamanho da palavra, o nível de dificuldade e a quantidade de tentativas.">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
+        <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script
+        src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"
+        integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY="
+        crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    </head>
+    <body>
+        <div class='top'>
+            <div class='main'>
+                <div class='inst'>
+                    <i data-feather="help-circle"></i>
+                </div>
+                <div class='title'>
+                    <h1>verbete</h1>
+                </div>
+                <div class='data'>
+                    <i data-feather="award"></i>
+                </div>
+            </div>
+        </div>
+        <script>
+            feather.replace()
+        </script>
+        {% block content %}
+        {% endblock %}
+        <!--bottom here-->
+        <div class='bottom'>
+            <p>Desenvolvido por <a href="https://github.com/csamuelsm">Samuel Santos</a> (2022).</p>
+            <p><a href='https://nubank.com.br/pagar/4vsyx/BtWyacDlWD'>Me pague um lanche (nubank)</a> ou</p>
+            <form action="https://www.paypal.com/donate" method="post" target="_top">
+                <input type="hidden" name="hosted_button_id" value="7M2BZQD5GJCSG" />
+                <input type="image" src="https://www.paypalobjects.com/pt_BR/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Faça doações com o botão do PayPal" />
+                <img alt="" border="0" src="https://www.paypal.com/pt_BR/i/scr/pixel.gif" width="1" height="1" />
+                </form>
+            <p>Este projeto é <a href="https://github.com/csamuelsm/palavrasss">Open Source</a>!</p>
+        </div>
+    </body>
+</html>

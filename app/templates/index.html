@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class='content'>
+    <div class='wizard'>
+        Selecione o tamanho da palavra:
+        <div class='chance' id='length'>
+            <div class='entry select' value=4>4</div>
+            <div class='entry selected' value=5>5</div>
+            <div class='entry select' value=6>6</div>
+            <div class='entry select' value=7>7</div>
+            <div class='entry select' value=8>8</div>
+        </div>
+        <br/>
+        Selecione a quantidade de chances:
+        <div class='chance' id='chances' style='flex-wrap: wrap;'>
+            <div class='entry select' value=3>3</div>
+            <div class='entry select' value=4>4</div>
+            <div class='entry select' value=5>5</div>
+            <div class='entry selected' value=6>6</div>
+            <div class='entry select' value=7>7</div>
+            <div class='entry select' value=8>8</div>
+            <div class='entry select' value=9>9</div>
+        </div>
+        <br/>
+        Selecione o nível de dificuldade das palavras:
+        <div class='chance' id='difficulty'>
+            <div class='entry selected' value=1>1</div>
+            <div class='entry select' value=2>2</div>
+            <div class='entry select' value=3>3</div>
+        </div>
+        <ul>
+            <li>1 - Palavras muito usadas (Fácil)</li>
+            <li>2 - Palavras medianamente usadas (Normal);</li>
+            <li>3 - Palavras pouco usadas (Difícil)</li>
+        </ul>
+        <br/>
+        <button class='play'><b>JOGAR</b></button>
+    </div>
+
+    <div class='modal instructions'>
+        <h3>Como jogar?</h3>
+        <br/>
+        <p>Você tem uma quantidade limitada de tentativas para adivinhar uma palavra.</p>
+        <p>A cada tentativa digite uma palavra e aperte <b>Enter</b>. Por exemplo: </p>
+        <div class='chance'>
+            <div class='entry' style='background-color: white;'><h2>C</h2></div>
+            <div class='entry' style='background-color: white;'><h2>A</h2></div>
+            <div class='entry' style='background-color: white;'><h2>R</h2></div>
+            <div class='entry' style='background-color: white;'><h2>R</h2></div>
+            <div class='entry' style='background-color: white;'><h2>O</h2></div>
+        </div>
+        <p>As letras da palavra que você digitou ficarão coloridas: </p>
+        <div class='chance'>
+            <div class='entry' style='background-color: #333333;'><h2>C</h2></div>
+            <div class='entry' style='background-color: #A1C45A;'><h2>A</h2></div>
+            <div class='entry' style='background-color: #F1C550;'><h2>R</h2></div>
+            <div class='entry' style='background-color: #F1C550;'><h2>R</h2></div>
+            <div class='entry' style='background-color: #333333;'><h2>O</h2></div>
+        </div>
+        <p>Isso quer dizer o seguinte: </p>
+        <p><b>CINZA:</b> Esta letra não existe na palavra que você está procurando.</p>
+        <p><b>VERDE:</b> Esta letra existe na palavra exatamente nesta posição.</p>
+        <p><b>VERDE:</b> Esta letra existe na palavra, porém em outra posição.</p>
+        <p>Na próxima tentativa, leve isso em consideração!</p>
+        <br/>
+        <button class='close_modal'><b>ENTENDI!</b></button>
+    </div>
+
+    <div class='result modal'>
+        <div class='win'>
+            <h2>parabéns! você venceu!</h2>
+            <button class='refresh'><b>JOGAR NOVAMENTE</b></button>
+        </div>
+        <div class='lose'>
+            <h2>que pena! você perdeu!</h2>
+            <p>a palavra era: <span class='word'></span></p>
+            <button class='refresh'><b>JOGAR NOVAMENTE</b></button>
+        </div>
+    </div>
+
+</div>
+
+<script src="{{ url_for('static',filename='scripts/main.js') }}"></script>
+
+{% endblock %}

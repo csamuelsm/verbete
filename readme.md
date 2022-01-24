@@ -7,6 +7,7 @@
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
 ![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
+![Socket.io](https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate/?hosted_button_id=7M2BZQD5GJCSG)
 
 Este é um clone dos jogos [term.ooo](https://term.ooo/) e [wordle](https://www.powerlanguage.co.uk/wordle/). Porém, você não precisa jogar só uma vez por dia.
@@ -18,10 +19,12 @@ Este é um clone dos jogos [term.ooo](https://term.ooo/) e [wordle](https://www.
     - Palavras muito usadas
     - Palavras medianamente usadas
     - Palavras pouco usadas
+- **Digite também pelo teclado**
+- **Compartilhe no Twitter**
 
 Configurações             |  Jogo
 :-------------------------:|:-------------------------:
-![](/screenshot/setup.png)  |  ![](/screenshot/game.png)
+![](/screenshot/setup.png) |  ![](/screenshot/game.png)
 
 ### Como funciona?
 
