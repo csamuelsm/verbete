@@ -76,7 +76,7 @@ function typing(l, socket) {
 
 $(document).ready(function(){
 
-    const socket = io.connect("ws://verbete.herokuapp.com:9443/socket.io/?EIO=4&transport=websocket");
+    const socket = io();
 
     /*socket.on('connect', function(){
         const sessionID = socket.socket.sessionID
