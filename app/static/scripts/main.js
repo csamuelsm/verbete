@@ -76,7 +76,7 @@ function typing(l, socket) {
 
 $(document).ready(function(){
 
-    const socket = io();
+    const socket = io('https://verbete.herokuapp.com/');
 
     /*socket.on('connect', function(){
         const sessionID = socket.socket.sessionID
