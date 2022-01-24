@@ -1,5 +1,13 @@
 # palavras++
 
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![jQuery](https://img.shields.io/badge/jquery-%230769AD.svg?style=for-the-badge&logo=jquery&logoColor=white)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
+![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
+
 Este é um clone dos jogos [term.ooo](https://term.ooo/) e [wordle](https://www.powerlanguage.co.uk/wordle/). Porém, você não precisa jogar só uma vez por dia.
 
 - Jogue quantas vezes quiser
@@ -26,5 +34,9 @@ Obrigado aos pesquisadores do IME e PUC-SP pela disponibilização dos datasets.
 
 #### Me pague um lanche
 
-- **Chave PIX**: `csamuelssm@gmail.com`
-- **Nome**: `Cicero Samuel Santos Morais`
+- Banco do Brasil:
+    - **Chave PIX**: `csamuelssm@gmail.com`
+    - **Nome**: `Cicero Samuel Santos Morais`
+- [Nubank (link)](https://nubank.com.br/pagar/4vsyx/BtWyacDlWD)
+
+Se você tiver alguma sugestão, encontrar alguma palavra errada ou inapropriada ou quiser ajudar de alguma outra forma, fale comigo por `csamuelssm@gmail.com` ou abra uma issue.
