@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class='content'>
+    <div class='wizard'>
+        Selecione o tamanho da palavra:
+        <div class='chance' id='length'>
+            <div class='entry select' value=4>4</div>
+            <div class='entry selected' value=5>5</div>
+            <div class='entry select' value=6>6</div>
+            <div class='entry select' value=7>7</div>
+            <div class='entry select' value=8>8</div>
+        </div>
+        <br/>
+        Selecione a quantidade de chances:
+        <div class='chance' id='chances'>
+            <div class='entry select' value=3>3</div>
+            <div class='entry select' value=4>4</div>
+            <div class='entry select' value=5>5</div>
+            <div class='entry selected' value=6>6</div>
+            <div class='entry select' value=7>7</div>
+            <div class='entry select' value=8>8</div>
+            <div class='entry select' value=9>9</div>
+        </div>
+        <br/>
+        Selecione o nível de dificuldade das palavras:
+        <div class='chance' id='difficulty'>
+            <div class='entry selected' value=1>1</div>
+            <div class='entry select' value=2>2</div>
+            <div class='entry select' value=3>3</div>
+        </div>
+        <ul>
+            <li>1 - Palavras muito usadas (Fácil)</li>
+            <li>2 - Palavras medianamente usadas (Normal);</li>
+            <li>3 - Palavras pouco usadas (Difícil)</li>
+        </ul>
+        <br/>
+        <button class='play'><b>JOGAR</b></button>
+    </div>
+
+</div>
+
+<div class='result'>
+    <div class='win'>
+        <h2>parabéns! você venceu!</h2>
+        <button class='refresh'><b>JOGAR NOVAMENTE</b></button>
+    </div>
+    <div class='lose'>
+        <h2>que pena! você perdeu!</h2>
+        <p>a palavra era: <span class='word'></span></p>
+        <button class='refresh'><b>JOGAR NOVAMENTE</b></button>
+    </div>
+</div>
+
+<script src="{{ url_for('static',filename='scripts/main.js') }}"></script>
+
+{% endblock %}
