@@ -28,6 +28,25 @@ Para as palavras, é utilizado o [dicionário br.ispell](https://www.ime.usp.br/
 
 Toda vez que o jogador clica em "jogar", uma palavra é selecionada de acordo com as configurações que foram escolhidas.
 
+### Como rodar?
+
+Clone o repositório:
+
+```
+git clone https://github.com/csamuelsm/palavrasss
+```
+
+Na linha `socketio.run(app, host='192.168.0.5', debug=True)`, altere o argumento `host` para o seu IP ou então remova ele.
+
+Instale as dependências e execute `app.py`:
+
+```
+python -m pip install -r requirements.txt
+python app.py
+```
+
+Acesse o app em `http://localhost:5000` ou `http://<seu ip>:5000`.
+
 ### Agradecimentos
 
 Obrigado aos pesquisadores do IME e PUC-SP pela disponibilização dos datasets.
