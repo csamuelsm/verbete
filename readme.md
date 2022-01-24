@@ -7,6 +7,7 @@
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
 ![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate/?hosted_button_id=7M2BZQD5GJCSG)
 
 Este é um clone dos jogos [term.ooo](https://term.ooo/) e [wordle](https://www.powerlanguage.co.uk/wordle/). Porém, você não precisa jogar só uma vez por dia.
 
@@ -57,5 +58,6 @@ Obrigado aos pesquisadores do IME e PUC-SP pela disponibilização dos datasets.
     - **Chave PIX**: `csamuelssm@gmail.com`
     - **Nome**: `Cicero Samuel Santos Morais`
 - [Nubank (link)](https://nubank.com.br/pagar/4vsyx/BtWyacDlWD)
+- Paypal [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate/?hosted_button_id=7M2BZQD5GJCSG)
 
 Se você tiver alguma sugestão, encontrar alguma palavra errada ou inapropriada ou quiser ajudar de alguma outra forma, fale comigo por `csamuelssm@gmail.com` ou abra uma issue.
