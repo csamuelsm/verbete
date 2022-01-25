@@ -14,6 +14,16 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 socketio = SocketIO(app)
 
+def normalize_string(word):
+    w = unicodedata.normalize("NFD", word)
+    w = w.encode("ascii", "ignore")
+    w = w.decode("utf-8")
+    return w
+
+global word_list
+word_list = pd.read_csv("palavras.txt").words.tolist() + pd.read_csv("br-utf8.txt").words.tolist()
+word_list = [normalize_string(p).lower() for p in word_list]
+
 #global word
 #global words
 #session["word"] = None
@@ -74,19 +84,12 @@ def new_round(message):
     session["curr_game_start"] = datetime.now()
     print(session["word"])
 
-def normalize_string(word):
-    w = unicodedata.normalize("NFD", word)
-    w = w.encode("ascii", "ignore")
-    w = w.decode("utf-8")
-    return w
-
 @socketio.on('enter')
 def check_words(message):
+    global word_list
     guess = normalize_string(message['word'].lower())
     print("{} -- {}".format(session["word"], guess))
     w = normalize_string(session["word"]).lower()
-    word_list = pd.read_csv("palavras.txt").words.tolist()
-    word_list = [normalize_string(p).lower() for p in word_list]
     special = {}
     if guess in word_list:
         if guess == w:
