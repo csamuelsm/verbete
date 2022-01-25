@@ -1,3 +1,4 @@
+from encodings import normalize_encoding
 from flask import Flask, render_template, session, request
 from flask_socketio import SocketIO, emit
 from uuid import uuid4
@@ -12,6 +13,7 @@ app.config['SECRET_KEY'] = uuid4().hex
 app.config["SESSION_PERMANENT"] = True
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
+#session.permanent_session_lifetime = 
 socketio = SocketIO(app)
 
 def normalize_string(word):
@@ -33,6 +35,7 @@ def get_mean_interval(words):
     mean = words['Freq'].mean()
     std = words['Freq'].std()
     mean_interval = [math.floor(mean), math.ceil(mean+std)]
+    print(mean_interval)
     return mean_interval
 
 def get_new_word(length, difficulty):
@@ -57,7 +60,7 @@ def get_new_word(length, difficulty):
     #return words.sample().word.values[0]
 
 def generate_share_text():
-    text = "joguei verbete #{}!&#010;&#010;".format(session["games"])
+    text = "Eu joguei verbete!&#010;&#010;"
     print("share text {}".format(session["curr_game_status"]))
     for t in session["curr_game_status"]:
         for c in t:
@@ -88,6 +91,8 @@ def send():
 @socketio.on('connect')
 def connect():
     session['sid'] = request.sid
+    #print(app.config['SECRET_KEY'])
+    #print(session['sid'])
 
 @socketio.on('new round')
 def new_round(message):
@@ -143,23 +148,28 @@ def check_words(message):
                             room=session['sid'])
         else:
             status = []
-            letras = []
+            #letras = []
             for i in range(len(guess)):
                 if normalize_string(guess[i]) not in normalize_string(w):
                     status.append('#333333')
-                    letras.append(normalize_string(guess[i]))
+                    #letras.append(normalize_string(guess[i]))
                 else: 
                     if normalize_string(guess[i]) == normalize_string(w[i]):
                         ##print("{} - {}".format(session["word"].lower(), w))
-                        if session["word"].lower()[i] != normalize_string(w[i]):
-                            special[i] = session["word"][i]
-                        status.append('#A1C45A')
-                    else:
-                        if guess[i] == 'ç':
-                            letras.append(guess[i])
+                        if guess[i] == 'ç' and w[i] == 'c':
+                            if 'ç' in w:
+                                status.append('#F1C550')
+                            else:
+                                status.append('#333333')
                         else:
-                            letras.append(normalize_string(guess[i]))
-                        status.append('#F1C550')
+                            status.append('#A1C45A')
+                        if session["word"].lower()[i] != normalize_string(w[i]):
+                            special[i] = session["word"][i]                        
+                    elif normalize_string(guess[i]) in normalize_string(w):
+                        if guess[i] == 'ç' and 'ç' not in w:
+                            status.append('#333333')
+                        else:
+                            status.append('#F1C550')
             with app.app_context():
                 #print(special)
                 session["curr_game_status"].append(status)

@@ -1,3 +1,26 @@
+function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    let expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+}
+
 function create_grid(chances, length) {
     html_code = ""
     for (i=0; i<chances; i++) {
@@ -76,7 +99,25 @@ function typing(l, socket) {
 
 $(document).ready(function(){
 
-    const socket = io('https://verbete.herokuapp.com/');
+    //cookies
+    if (getCookie("games") == "") {
+        setCookie("games", "0", 365)
+    }
+    if (getCookie("victories") == "") {
+        setCookie("victories", "0", 365)
+    }
+    if (getCookie("defeats") == "") {
+        setCookie("defeats", "0", 365)
+    }
+    if (getCookie("streak") == "") {
+        setCookie("streak", "0", 365)
+    }
+    if (getCookie("biggest_streak")== "") {
+        setCookie("biggest_streak", "0", 365)
+    }
+
+    //const socket = io('https://verbete.herokuapp.com/');
+    const socket = io();
 
     /*socket.on('connect', function(){
         const sessionID = socket.socket.sessionID
@@ -232,13 +273,33 @@ $(document).ready(function(){
             $(this).animate({'background-color': '#A1C45A', 'border-color': '#A1C45A'}, 500)
         })
 
+        games = getCookie("games")
+        victories = getCookie("victories")
+        defeats = getCookie("defeats")
+        streak = getCookie("streak")
+        biggest_streak = getCookie("biggest_streak")
+
+        setCookie("games", String(parseInt(games)+1), 365)
+        $('.win .dados .games').append("<h2><i data-feather='hash'></i> " + String(parseInt(games)+1) + "</h2><p>jogos</p>")
+        setCookie("victories", String(parseInt(victories)+1), 365)
+        if (parseInt(defeats) == 0) {
+            $('.win .dados .victories').append("<h2><i data-feather='award'></i> " + "100" + "%</h2><p>vitórias</p>")
+        } else {
+            porc_vitorias = ((parseFloat(victories)+1)/(parseFloat(games)+1))*100
+            $('.win .dados .victories').append("<h2><i data-feather='award'></i> " + String(porc_vitorias.toFixed(2)) + "%</h2><p>vitórias</p>")
+        }
+        setCookie("streak", String(parseInt(streak)+1), 365)
+        $('.win .dados .streak').append("<h2><i data-feather='trending-up'></i> " + String(parseInt(streak)+1) + "</h2><p>ofensiva</p>")
+        if (parseInt(streak)+1 > parseInt(biggest_streak)) {
+            setCookie("biggest_streak", String(parseInt(streak)+1), 365)
+            $('.win .dados .biggest_streak').append("<h2><i data-feather='star'></i> " + String(parseInt(streak)+1) + "</h2><p>recorde</p>")
+        } else {
+            $('.win .dados .biggest_streak').append("<h2><i data-feather='star'></i> " + String(biggest_streak) + "</h2><p>recorde</p>")
+        }
+        
         $('.curr_chance').effect("shake", {times:4}, 500)
         $('.win').append('<br/><br/><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="' + data["text"] +'" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>')
         $('.win .time').prepend("<i data-feather='clock'></i> " + data["time"] + " min.")
-        $('.win .dados .games').append("<h2><i data-feather='hash'></i> " + data["games"] + "</h2><p>jogos</p>")
-        $('.win .dados .victories').append("<h2><i data-feather='award'></i> " + data["porc_vitorias"] + "%</h2><p>vitórias</p>")
-        $('.win .dados .streak').append("<h2><i data-feather='trending-up'></i> " + data["ofensiva"] + "</h2><p>ofensiva</p>")
-        $('.win .dados .biggest_streak').append("<h2><i data-feather='star'></i> " + data["biggest_streak"] + "</h2><p>recorde</p>")
         feather.replace()
         $('.result').show()
         $('.win').show(500)
@@ -254,12 +315,29 @@ $(document).ready(function(){
 
     // lost game
     socket.on('lose', (data) => {
+
+        games = getCookie("games")
+        victories = getCookie("victories")
+        defeats = getCookie("defeats")
+        streak = getCookie("streak")
+        biggest_streak = getCookie("biggest_streak")
+
+        setCookie("games", String(parseInt(games)+1), 365)
+        $('.lose .dados .games').append("<h2><i data-feather='hash'></i> " + String(parseInt(games)+1) + "</h2><p>jogos</p>")
+        porc_vitorias = ((parseFloat(victories))/(parseFloat(games)+1))*100
+        setCookie("defeats", String(parseInt(defeats)+1), 365)
+        $('.lose .dados .victories').append("<h2><i data-feather='award'></i> " + String(porc_vitorias.toFixed(2)) + "%</h2><p>vitórias</p>")
+        setCookie("streak", "0", 365)
+        streak = 0
+        $('.lose .dados .streak').append("<h2><i data-feather='trending-up'></i> " + String(parseInt(streak)) + "</h2><p>ofensiva</p>")
+        $('.lose .dados .biggest_streak').append("<h2><i data-feather='star'></i> " + String(biggest_streak) + "</h2><p>recorde</p>")
+
         $('.lose').append('<br/><br/><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="' + data["text"] +'" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>')
         $('.lose time').prepend("<h1> <i data-feather='clock'></i> " + data["time"] + " min.</h1>")
-        $('.lose .dados .games').append("<h2><i data-feather='hash'></i> " + data["games"] + "</h2><p>jogos</p>")
-        $('.lose .dados .victories').append("<h2><i data-feather='award'></i> " + data["porc_vitorias"] + "%</h2><p>vitórias</p>")
-        $('.lose .dados .streak').append("<h2><i data-feather='trending-up'></i> " + data["ofensiva"] + "</h2><p>ofensiva</p>")
-        $('.lose .dados .biggest_streak').append("<h2><i data-feather='star'></i> " + data["biggest_streak"] + "</h2><p>recorde</p>")
+        //$('.lose .dados .games').append("<h2><i data-feather='hash'></i> " + data["games"] + "</h2><p>jogos</p>")
+        //$('.lose .dados .victories').append("<h2><i data-feather='award'></i> " + data["porc_vitorias"] + "%</h2><p>vitórias</p>")
+        //$('.lose .dados .streak').append("<h2><i data-feather='trending-up'></i> " + data["ofensiva"] + "</h2><p>ofensiva</p>")
+        //$('.lose .dados .biggest_streak').append("<h2><i data-feather='star'></i> " + data["biggest_streak"] + "</h2><p>recorde</p>")
         feather.replace()
         $('.result').show()
         $('.lose').show(500)
