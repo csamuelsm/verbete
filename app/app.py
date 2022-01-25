@@ -85,7 +85,7 @@ def check_words(message):
     guess = normalize_string(message['word'].lower())
     print("{} -- {}".format(session["word"], guess))
     w = normalize_string(session["word"]).lower()
-    word_list = session["words"].word.tolist()
+    word_list = pd.read_csv("br-utf8.txt").words.tolist()
     word_list = [normalize_string(p).lower() for p in word_list]
     special = {}
     if guess in word_list:
@@ -97,10 +97,6 @@ def check_words(message):
                 total_seconds = time_delta.total_seconds()
                 minutes = total_seconds/60
                 print(session["curr_game_status"])
-                if "history" in session:
-                    session["history"].append(len(session["curr_game_status"]))
-                else:
-                    session["history"] = [len(session["curr_game_status"])]
                 socketio.emit('win', {"text": generate_share_text(), "time": "{:5.2f}".format(minutes)}, room=session['sid'])
         else:
             status = []
@@ -132,10 +128,6 @@ def game_over():
     time_delta = session["curr_game_end"] - session["curr_game_start"]
     total_seconds = time_delta.total_seconds()
     minutes = total_seconds/60
-    if "history" in session:
-        session["history"].append(len(session["curr_game_status"]))
-    else:
-        session["history"] = [len(session["curr_game_status"])]
     with app.app_context():
         socketio.emit('lose', {"word": session["word"], "text": generate_share_text(), "time": "{:5.2f}".format(minutes)}, room=session['sid'])
 
