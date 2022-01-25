@@ -229,6 +229,10 @@ a {
     width: 80%;
 }
 
+.display_data {
+    width: 80%;
+}
+
 .result {
     width: 70%;
 }
@@ -246,4 +250,22 @@ a {
     border: 0px;
     font-size: 16px;
     color: #48414e;
+}
+
+.dados {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.dados div {
+    display: flex;
+    width: 25%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #FFF9E0;
 }

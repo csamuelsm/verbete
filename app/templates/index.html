@@ -12,10 +12,10 @@
             <div class='entry select' value=7>7</div>
             <div class='entry select' value=8>8</div>
             <div class='entry select' value=9>9</div>
-            <div class='entry select' value=8>10</div>
+            <div class='entry select' value=10>10</div>
         </div>
-        <i>Vire o celular para jogar em tamanhos maiores!</i>
-        <br/>
+        <i style='font-size: 12px;'>Vire o celular para jogar em tamanhos maiores!</i>
+        <br/><br/>
         Selecione a quantidade de chances:
         <div class='chance' id='chances' style='flex-wrap: wrap;'>
             <div class='entry select' value=3>3</div>
@@ -71,13 +71,36 @@
         <button class='close_modal'><b>ENTENDI!</b></button>
     </div>
 
+    <div class='modal display_data'>
+        <div class='dados'>
+            <div class='games'></div>
+            <div class='victories'></div>
+            <div class='streak'></div>
+            <div class='biggest_streak'></div>
+        </div>
+        <button class='close_modal'><b>VOLTAR AO JOGO</b></button>
+    </div>
+
     <div class='result modal'>
         <div class='win'>
+            <h1 class='time'></h1>
+            <div class='dados'>
+                <div class='games'></div>
+                <div class='victories'></div>
+                <div class='streak'></div>
+                <div class='biggest_streak'></div>
+            </div>
             <h2>parabéns! você venceu!</h2>
             <button class='refresh'><b>JOGAR NOVAMENTE</b></button>
         </div>
         <div class='lose'>
-            <h2>que pena! você perdeu!</h2>
+            <h1 class='time'></h1>
+            <div class='dados'>
+                <div class='games'></div>
+                <div class='victories'></div>
+                <div class='streak'></div>
+                <div class='biggest_streak'></div>
+            </div>
             <p>a palavra era: <span class='word'></span></p>
             <button class='refresh'><b>JOGAR NOVAMENTE</b></button>
         </div>

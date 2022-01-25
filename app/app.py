@@ -57,7 +57,7 @@ def get_new_word(length, difficulty):
     #return words.sample().word.values[0]
 
 def generate_share_text():
-    text = "Eu joguei verbete!&#010;&#010;"
+    text = "joguei verbete #{}!&#010;&#010;".format(session["games"])
     print("share text {}".format(session["curr_game_status"]))
     for t in session["curr_game_status"]:
         for c in t:
@@ -87,12 +87,12 @@ def new_round(message):
 @socketio.on('enter')
 def check_words(message):
     global word_list
-    guess = normalize_string(message['word'].lower())
+    guess = message['word'].lower()
     print("{} -- {}".format(session["word"], guess))
-    w = normalize_string(session["word"]).lower()
+    w = session["word"].lower()
     special = {}
-    if guess in word_list:
-        if guess == w:
+    if normalize_string(guess) in word_list:
+        if normalize_string(guess) == normalize_string(w):
             with app.app_context():
                 session["curr_game_status"].append(['#A1C45A' for i in range(len(w))])
                 session["curr_game_end"] = datetime.now()
@@ -100,16 +100,42 @@ def check_words(message):
                 total_seconds = time_delta.total_seconds()
                 minutes = total_seconds/60
                 print(session["curr_game_status"])
-                socketio.emit('win', {"text": generate_share_text(), "time": "{:5.2f}".format(minutes)}, room=session['sid'])
+                if "games" in session:
+                    session["games"] = session["games"] + 1
+                else:
+                    session["games"] = 1
+                if "wins" in session:
+                    session["wins"] = session["wins"] + 1
+                else:
+                    session["wins"] = 1
+                if "streak" in session:
+                    session["streak"] = session["streak"] + 1
+                else:
+                    session["streak"] = 1
+                if "biggest_streak" in session:
+                    if session["biggest_streak"] < session["streak"]:
+                        session["biggest_streak"] = session["streak"]
+                else:
+                    session["biggest_streak"] = session["streak"]
+                porc_vitorias = session["wins"]/session["games"]
+                
+                socketio.emit('win', 
+                            {"text": generate_share_text(), 
+                            "time": "{:5.2f}".format(minutes),
+                            "games": session["games"],
+                            "porc_vitorias": porc_vitorias,
+                            "ofensiva": session["streak"],
+                            "biggest_streak": session["biggest_streak"]}, 
+                            room=session['sid'])
         else:
             status = []
             for i in range(len(guess)):
-                if guess[i] not in w:
+                if normalize_string(guess[i]) not in normalize_string(w):
                     status.append('#333333')
                 else: 
-                    if guess[i] == w[i]:
+                    if normalize_string(guess[i]) == normalize_string(w):
                         ##print("{} - {}".format(session["word"].lower(), w))
-                        if session["word"].lower()[i] != w[i]:
+                        if session["word"].lower()[i] != normalize_string(w[i]):
                             special[i] = session["word"][i]
                         status.append('#A1C45A')
                     else:
@@ -131,8 +157,30 @@ def game_over():
     time_delta = session["curr_game_end"] - session["curr_game_start"]
     total_seconds = time_delta.total_seconds()
     minutes = total_seconds/60
+    if "games" in session:
+        session["games"] = session["games"] + 1
+    else:
+        session["games"] = 1
+    if "defeats" in session:
+        session["defeats"] = session["defeats"] + 1
+    else:
+        session["defeats"] = 1
+    if "streak" in session:
+        session["streak"] = 0
+    else:
+        session["streak"] = 0
+    if "biggest_streak" not in session:
+        session["biggest_streak"] = 0
+    porc_vitorias = session["wins"]/session["games"]
     with app.app_context():
-        socketio.emit('lose', {"word": session["word"], "text": generate_share_text(), "time": "{:5.2f}".format(minutes)}, room=session['sid'])
+        socketio.emit('lose', {"word": session["word"], 
+                    "text": generate_share_text(), 
+                    "time": "{:5.2f}".format(minutes),
+                    "games": session["games"],
+                    "porc_vitorias": porc_vitorias,
+                    "ofensiva": session["streak"],
+                    "biggest_streak": session["biggest_streak"]}, 
+                    room=session['sid'])
 
 @app.route("/")
 def hello_world():
