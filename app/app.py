@@ -85,7 +85,7 @@ def check_words(message):
     guess = normalize_string(message['word'].lower())
     print("{} -- {}".format(session["word"], guess))
     w = normalize_string(session["word"]).lower()
-    word_list = pd.read_csv("br-utf8.txt").words.tolist()
+    word_list = pd.read_csv("palavras.txt").words.tolist()
     word_list = [normalize_string(p).lower() for p in word_list]
     special = {}
     if guess in word_list:
