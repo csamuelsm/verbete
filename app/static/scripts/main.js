@@ -87,12 +87,24 @@ $(document).ready(function(){
         $('.instructions').hide()
     })
 
-    $('.game_data .close_modal').click(function(){
-        $('.instructions').hide()
+    $('.display_data .close_modal').click(function(){
+        $('.display_data').hide()
     })
 
     $('.inst').click(function(){
         $('.instructions').show()
+    })
+
+    $('.data').click(function(){
+        socket.emit('ask data')
+    })
+
+    socket.on('send data', (data) => {
+        $('.display_data .games').append("<h2><i data-feather='hash'></i> " + data["games"] + "</h2><p>jogos</p>")
+        $('.display_data .victories').append("<h2><i data-feather='award'></i> " + data["porc_vitorias"] + "%</h2><p>vitórias</p>")
+        $('.display_data .streak').append("<h2><i data-feather='trending-up'></i> " + data["ofensiva"] + "</h2><p>ofensiva</p>")
+        $('.display_data .biggest_streak').append("<h2><i data-feather='star'></i> " + data["biggest_streak"] + "</h2><p>recorde</p>")
+        $('.display_data').show()
     })
 
     // Selects from wizard
@@ -223,10 +235,10 @@ $(document).ready(function(){
         $('.curr_chance').effect("shake", {times:4}, 500)
         $('.win').append('<br/><br/><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="' + data["text"] +'" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>')
         $('.win .time').prepend("<i data-feather='clock'></i> " + data["time"] + " min.")
-        $('.win .dados .games').append("<h2><i data-feather='hash'></i>" + data["games"] + "</h2><p>jogos</p>")
-        $('.win .dados .victories').append("<h2><i data-feather='award'></i>" + data["porc_vitorias"] + "%</h2><p>vitórias</p>")
-        $('.win .dados .streak').append("<h2><i data-feather='trending-up'></i>" + data["ofensiva"] + "</h2><p>ofensiva</p>")
-        $('.win .dados .biggest_streak').append("<h2><i data-feather='star'></i>" + data["biggest_streak"] + "</h2><p>recorde</p>")
+        $('.win .dados .games').append("<h2><i data-feather='hash'></i> " + data["games"] + "</h2><p>jogos</p>")
+        $('.win .dados .victories').append("<h2><i data-feather='award'></i> " + data["porc_vitorias"] + "%</h2><p>vitórias</p>")
+        $('.win .dados .streak').append("<h2><i data-feather='trending-up'></i> " + data["ofensiva"] + "</h2><p>ofensiva</p>")
+        $('.win .dados .biggest_streak').append("<h2><i data-feather='star'></i> " + data["biggest_streak"] + "</h2><p>recorde</p>")
         feather.replace()
         $('.result').show()
         $('.win').show(500)
@@ -244,10 +256,10 @@ $(document).ready(function(){
     socket.on('lose', (data) => {
         $('.lose').append('<br/><br/><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text="' + data["text"] +'" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>')
         $('.lose time').prepend("<h1> <i data-feather='clock'></i> " + data["time"] + " min.</h1>")
-        $('.lose .dados .games').append("<h2><i data-feather='hash'></i>" + data["games"] + "</h2><p>jogos</p>")
-        $('.lose .dados .victories').append("<h2><i data-feather='award'></i>" + data["porc_vitorias"] + "%</h2><p>vitórias</p>")
-        $('.lose .dados .streak').append("<h2><i data-feather='trending-up'></i>" + data["ofensiva"] + "</h2><p>ofensiva</p>")
-        $('.lose .dados .biggest_streak').append("<h2><i data-feather='star'></i>" + data["biggest_streak"] + "</h2><p>recorde</p>")
+        $('.lose .dados .games').append("<h2><i data-feather='hash'></i> " + data["games"] + "</h2><p>jogos</p>")
+        $('.lose .dados .victories').append("<h2><i data-feather='award'></i> " + data["porc_vitorias"] + "%</h2><p>vitórias</p>")
+        $('.lose .dados .streak').append("<h2><i data-feather='trending-up'></i> " + data["ofensiva"] + "</h2><p>ofensiva</p>")
+        $('.lose .dados .biggest_streak').append("<h2><i data-feather='star'></i> " + data["biggest_streak"] + "</h2><p>recorde</p>")
         feather.replace()
         $('.result').show()
         $('.lose').show(500)

@@ -71,6 +71,20 @@ def generate_share_text():
     return text + "&#010;"
 
 
+@socketio.on("ask data")
+def send():
+    if "wins" not in session:
+        porc_vitorias = 0
+    else:
+        porc_vitorias = session["wins"]/session["games"]
+    with app.app_context():
+        socketio.emit('send data', {
+                    "games": session["games"],
+                    "porc_vitorias": porc_vitorias*100,
+                    "ofensiva": session["streak"],
+                    "biggest_streak": session["biggest_streak"]}, 
+                    room=session['sid'])
+
 @socketio.on('connect')
 def connect():
     session['sid'] = request.sid
@@ -123,22 +137,28 @@ def check_words(message):
                             {"text": generate_share_text(), 
                             "time": "{:5.2f}".format(minutes),
                             "games": session["games"],
-                            "porc_vitorias": porc_vitorias,
+                            "porc_vitorias": porc_vitorias*100,
                             "ofensiva": session["streak"],
                             "biggest_streak": session["biggest_streak"]}, 
                             room=session['sid'])
         else:
             status = []
+            letras = []
             for i in range(len(guess)):
                 if normalize_string(guess[i]) not in normalize_string(w):
                     status.append('#333333')
+                    letras.append(normalize_string(guess[i]))
                 else: 
-                    if normalize_string(guess[i]) == normalize_string(w):
+                    if normalize_string(guess[i]) == normalize_string(w[i]):
                         ##print("{} - {}".format(session["word"].lower(), w))
                         if session["word"].lower()[i] != normalize_string(w[i]):
                             special[i] = session["word"][i]
                         status.append('#A1C45A')
                     else:
+                        if guess[i] == 'ç':
+                            letras.append(guess[i])
+                        else:
+                            letras.append(normalize_string(guess[i]))
                         status.append('#F1C550')
             with app.app_context():
                 #print(special)
@@ -171,13 +191,16 @@ def game_over():
         session["streak"] = 0
     if "biggest_streak" not in session:
         session["biggest_streak"] = 0
-    porc_vitorias = session["wins"]/session["games"]
+    if "wins" not in session:
+        porc_vitorias = 0
+    else:
+        porc_vitorias = session["wins"]/session["games"]
     with app.app_context():
         socketio.emit('lose', {"word": session["word"], 
                     "text": generate_share_text(), 
                     "time": "{:5.2f}".format(minutes),
                     "games": session["games"],
-                    "porc_vitorias": porc_vitorias,
+                    "porc_vitorias": porc_vitorias*100,
                     "ofensiva": session["streak"],
                     "biggest_streak": session["biggest_streak"]}, 
                     room=session['sid'])
