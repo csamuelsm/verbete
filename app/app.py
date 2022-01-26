@@ -167,6 +167,11 @@ def check_words(message):
                                 status.append('rgb(240, 228, 66)')
                             else:
                                 status.append('rgb(204, 121, 167)')
+                        elif guess[i] == 'c' and w[i] == 'ç':
+                            if 'c' in w:
+                                status.append('rgb(240, 228, 66)')
+                            else:
+                                status.append('rgb(204, 121, 167)')
                         else:
                             status.append('rgb(0, 158, 115)')
                         if session["word"].lower()[i] != normalize_string(w[i]):
@@ -175,6 +180,8 @@ def check_words(message):
                         status.append('rgb(204, 121, 167)')
                     elif normalize_string(guess[i]) in normalize_string(w):
                         if guess[i] == 'ç' and 'ç' not in w:
+                            status.append('rgb(204, 121, 167)')
+                        elif guess[i] == 'c' and 'c' not in w:
                             status.append('rgb(204, 121, 167)')
                         else:
                             status.append('rgb(240, 228, 66)')
