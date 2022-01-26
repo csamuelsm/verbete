@@ -272,13 +272,22 @@ $(document).ready(function(){
                 //console.log(key)
                 key.animate({'background-color': colors[i]}, 500)
             }*/
-            if (i in special) {
-                key = $('.keyboard .entry[value=' + special[i].toUpperCase() + ']')
-                key.animate({'background-color': colors[i]}, 500)
-            } else {
-                key = $('.keyboard .entry[value=' + guess[i].toUpperCase() + ']')
-                key.animate({'background-color': colors[i]}, 500)
+            if ($(this).css("background-color") != 'rgb(0, 158, 115)') {
+                if (i in special && special[i] == 'ç') {
+                    key = $('.keyboard .entry[value=' + special[i].toUpperCase() + ']')
+                    key.animate({'background-color': colors[i]}, 500)
+                } else {
+                    if (guess[i] == 'ç') {
+                        key = $('.keyboard .entry[value=' + guess[i].toUpperCase() + ']')
+                        key.animate({'background-color': colors[i]}, 500)
+                    } else {
+                        key = $('.keyboard .entry[value=' + guess[i].normalize('NFD').replace(/[\u0300-\u036f]/g, "").toUpperCase() + ']')
+                        key.animate({'background-color': colors[i]}, 500)
+                    }
+                    
+                }
             }
+            
             i++
         })
         curr_chance.removeClass('curr_chance')
