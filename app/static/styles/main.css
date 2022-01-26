@@ -1,14 +1,14 @@
 /*
 colors:
 dark green: #5E782B
-green: #A1C45A
-white: #FFF9E0
-yellow: #F1C550
-red: #EA4C4C
+green: rgb(0, 158, 115)
+white: #ffffff
+yellow: rgb(240, 228, 66)
+red: rgb(213, 94, 0)
 */
 
 body, html {
-    background-color: #48414e;
+    background-color: rgb(0, 0, 0);
     padding: 0;
     margin: 0;
     display: flex;
@@ -22,14 +22,14 @@ body, html {
 }
 
 a {
-    color: #F1C550;
+    color: rgb(240, 228, 66);
     text-decoration-style: dotted;
 }
 
 .top {
     display: flex;
     justify-content: center;
-    color: #FFF9E0;
+    color: #ffffff;
     width: 100%;
 }
 
@@ -66,14 +66,14 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #FFF9E0;
+    color: #ffffff;
     flex-direction: column;
 }
 
 .wizard {
     text-align: center;
     width: 70%;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(255, 255, 255, 0.06);
     border-radius: 10px;
     padding: 15px;
 }
@@ -81,7 +81,7 @@ a {
 .wizard ul {
     font-size: 12px;
     list-style-type: none;
-    font-style: italic;
+    text-decoration: dotted;
 }
 
 .chance {
@@ -96,7 +96,7 @@ a {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    color: #48414e;
+    color: rgb(0, 0, 0);
     border-radius: 5px;
     margin:3px;
     text-transform: uppercase;
@@ -104,26 +104,26 @@ a {
 }
 
 .select {
-    border: 3px solid #FFF9E0;
+    border: 3px solid #ffffff;
     cursor: pointer;
-    color: #FFF9E0;
+    color: #ffffff;
 }
 
 .selected {
-    border: 3px solid #F1C550;
-    background-color: #F1C550;
-    color: #48414e;
+    border: 3px solid rgb(240, 228, 66);
+    background-color: rgb(240, 228, 66);
+    color: rgb(0, 0, 0);
     cursor: pointer;
 }
 
 .play {
-    background-color: #F1C550;
+    background-color: rgb(240, 228, 66);
     border-radius: 5px;
     padding: 10px 15px 10px 15px;
     cursor: pointer;
     border: 0px;
     font-size: 20px;
-    color: #48414e;
+    color: rgb(0, 0, 0);
 }
 
 .curr_chance .entry, .not_curr_chance .entry, .wasted_chance .entry, .wizard .entry {
@@ -132,21 +132,21 @@ a {
 }
 
 .curr_chance .not_filled {
-    border: 3px solid #FFF9E0;
+    border: 3px solid #ffffff;
 }
 
 .curr_chance .filled {
-    background-color: #FFF9E0;
-    border: 3px solid #FFF9E0;
+    background-color: #ffffff;
+    border: 3px solid #ffffff;
 }
 
 .not_curr_chance .not_filled, .wasted_chance .not_filled {
-    border: 3px solid #d8d8d8a4;
+    border: 3px solid rgba(255, 255, 255, 0.15);
 }
 
 .not_curr_chance .filled, .wasted_chance .filled {
-    background-color: #d8d8d8a4;
-    border: 3px solid #d8d8d8a4;
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 3px solid rgba(255, 255, 255, 0.15);
 }
 
 .keyboard {
@@ -162,30 +162,30 @@ a {
 }
 
 .keyboard .entry {
-    background-color: #d8d8d8a4;
-    color: #48414e;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: rgb(0, 0, 0);
     width: 50px;
     height: 30px;
     cursor: pointer;
 }
 
 .keyboard .enter {
-    background-color: #F1C550;
+    background-color: rgb(240, 228, 66);
 }
 
 .keyboard .backspace {
-    background-color: #EA4C4C;
-    color: #FFF9E0;
+    background-color: rgb(213, 94, 0);
+    color: #ffffff;
 }
 
 .refresh {
-    background-color: #EA4C4C;
+    background-color: rgb(213, 94, 0);
     border-radius: 5px;
     padding: 10px 15px 10px 15px;
     cursor: pointer;
     border: 0px;
     font-size: 20px;
-    color: #FFF9E0;
+    color: #ffffff;
     margin: 0;
 }
 
@@ -196,14 +196,14 @@ a {
 .word {
     padding: 3px;
     border-radius: 5px 3px 5px 3px;
-    background-color: #EA4C4C;
+    background-color: rgb(213, 94, 0);
     font-weight: 700;
     font-size: 14px;
 }
 
 .bottom {
     bottom: 0;
-    color: #FFF9E0;
+    color: #ffffff;
     font-size: 12px;
     font-weight: 100;
     width: 100%;
@@ -217,10 +217,10 @@ a {
     z-index: 1;
     overflow: auto;
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(255, 255, 255, 0.06);
     border-radius: 10px;
     padding: 15px;
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(40px);
     font-size: 14px;
     line-height: 14px;
 }
@@ -243,13 +243,13 @@ a {
 }
 
 .close_modal {
-    background-color: #F1C550;
+    background-color: rgb(240, 228, 66);
     border-radius: 5px;
     padding: 10px 15px 10px 15px;
     cursor: pointer;
     border: 0px;
     font-size: 16px;
-    color: #48414e;
+    color: rgb(0, 0, 0);
 }
 
 .dados {
@@ -267,5 +267,5 @@ a {
     justify-content: center;
     align-items: center;
     text-align: center;
-    color: #FFF9E0;
+    color: #ffffff;
 }

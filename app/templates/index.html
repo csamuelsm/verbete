@@ -5,7 +5,7 @@
 <div class='content'>
     <div class='wizard'>
         Selecione o tamanho da palavra:
-        <div class='chance' id='length'>
+        <div class='chance' id='length' style='flex-wrap: wrap;'>
             <div class='entry select' value=4>4</div>
             <div class='entry selected' value=5>5</div>
             <div class='entry select' value=6>6</div>
@@ -56,14 +56,14 @@
         </div>
         <p>As letras da palavra que você digitou ficarão coloridas: </p>
         <div class='chance'>
-            <div class='entry' style='background-color: #333333;'><h2>C</h2></div>
-            <div class='entry' style='background-color: #A1C45A;'><h2>A</h2></div>
-            <div class='entry' style='background-color: #F1C550;'><h2>R</h2></div>
-            <div class='entry' style='background-color: #F1C550;'><h2>R</h2></div>
-            <div class='entry' style='background-color: #333333;'><h2>O</h2></div>
+            <div class='entry' style='background-color: rgb(204, 121, 167);'><h2>C</h2></div>
+            <div class='entry' style='background-color: rgb(0, 158, 115);'><h2>A</h2></div>
+            <div class='entry' style='background-color: rgb(240, 228, 66);'><h2>R</h2></div>
+            <div class='entry' style='background-color: rgb(240, 228, 66);'><h2>R</h2></div>
+            <div class='entry' style='background-color: rgb(204, 121, 167);'><h2>O</h2></div>
         </div>
         <p>Isso quer dizer o seguinte: </p>
-        <p><b>CINZA:</b> Esta letra não existe na palavra que você está procurando.</p>
+        <p><b>VERMELHO:</b> Esta letra não existe na palavra que você está procurando.</p>
         <p><b>VERDE:</b> Esta letra existe na palavra exatamente nesta posição.</p>
         <p><b>AMARELO:</b> Esta letra existe na palavra, porém em outra posição.</p>
         <p>Na próxima tentativa, leve isso em consideração!</p>
@@ -72,6 +72,7 @@
     </div>
 
     <div class='modal display_data'>
+        <h1>Dados de Jogo</h1>
         <div class='dados'>
             <div class='games'></div>
             <div class='victories'></div>
@@ -91,6 +92,7 @@
                 <div class='biggest_streak'></div>
             </div>
             <h2>parabéns! você venceu!</h2>
+            <p>a palavra era: <span class='word'></span></p>
             <button class='refresh'><b>JOGAR NOVAMENTE</b></button>
         </div>
         <div class='lose'>

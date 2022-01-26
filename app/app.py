@@ -64,17 +64,17 @@ def generate_share_text():
     print("share text {}".format(session["curr_game_status"]))
     for t in session["curr_game_status"]:
         for c in t:
-            if c == '#333333':
-                text = text + "⬛"
-            elif c == '#A1C45A':
+            if c == 'rgb(204, 121, 167)':
+                text = text + "🟥"
+            elif c == 'rgb(0, 158, 115)':
                 text = text + "🟩"
-            elif c == '#F1C550':
+            elif c == 'rgb(240, 228, 66)':
                 text = text + "🟨"
         text = text + "&#010;"
     return text + "&#010;"
 
 
-@socketio.on("ask data")
+"""@socketio.on("ask data")
 def send():
     if "wins" not in session:
         porc_vitorias = 0
@@ -86,7 +86,7 @@ def send():
                     "porc_vitorias": porc_vitorias*100,
                     "ofensiva": session["streak"],
                     "biggest_streak": session["biggest_streak"]}, 
-                    room=session['sid'])
+                    room=session['sid'])"""
 
 @socketio.on('connect')
 def connect():
@@ -107,13 +107,13 @@ def new_round(message):
 def check_words(message):
     global word_list
     guess = message['word'].lower()
-    print("{} -- {}".format(session["word"], guess))
+    #print("{} -- {}".format(session["word"], guess))
     w = session["word"].lower()
     special = {}
     if normalize_string(guess) in word_list:
         if normalize_string(guess) == normalize_string(w):
             with app.app_context():
-                session["curr_game_status"].append(['#A1C45A' for i in range(len(w))])
+                session["curr_game_status"].append(['rgb(0, 158, 115)' for i in range(len(w))])
                 session["curr_game_end"] = datetime.now()
                 time_delta = session["curr_game_end"] - session["curr_game_start"]
                 total_seconds = time_delta.total_seconds()
@@ -137,39 +137,47 @@ def check_words(message):
                 else:
                     session["biggest_streak"] = session["streak"]
                 porc_vitorias = session["wins"]/session["games"]
+
+                for i in range(len(guess)):
+                    if session["word"].lower()[i] != normalize_string(w[i]):
+                            special[i] = session["word"][i]  
                 
                 socketio.emit('win', 
                             {"text": generate_share_text(), 
+                            "word": session["word"],
                             "time": "{:5.2f}".format(minutes),
                             "games": session["games"],
                             "porc_vitorias": porc_vitorias*100,
                             "ofensiva": session["streak"],
-                            "biggest_streak": session["biggest_streak"]}, 
+                            "biggest_streak": session["biggest_streak"],
+                            "special": special}, 
                             room=session['sid'])
         else:
             status = []
             #letras = []
             for i in range(len(guess)):
                 if normalize_string(guess[i]) not in normalize_string(w):
-                    status.append('#333333')
+                    status.append('rgb(204, 121, 167)')
                     #letras.append(normalize_string(guess[i]))
                 else: 
                     if normalize_string(guess[i]) == normalize_string(w[i]):
                         ##print("{} - {}".format(session["word"].lower(), w))
                         if guess[i] == 'ç' and w[i] == 'c':
                             if 'ç' in w:
-                                status.append('#F1C550')
+                                status.append('rgb(240, 228, 66)')
                             else:
-                                status.append('#333333')
+                                status.append('rgb(204, 121, 167)')
                         else:
-                            status.append('#A1C45A')
+                            status.append('rgb(0, 158, 115)')
                         if session["word"].lower()[i] != normalize_string(w[i]):
                             special[i] = session["word"][i]                        
+                    elif guess[i] in w:
+                        status.append('rgb(204, 121, 167)')
                     elif normalize_string(guess[i]) in normalize_string(w):
                         if guess[i] == 'ç' and 'ç' not in w:
-                            status.append('#333333')
+                            status.append('rgb(204, 121, 167)')
                         else:
-                            status.append('#F1C550')
+                            status.append('rgb(240, 228, 66)')
             with app.app_context():
                 #print(special)
                 session["curr_game_status"].append(status)

@@ -137,16 +137,45 @@ $(document).ready(function(){
     })
 
     $('.data').click(function(){
-        socket.emit('ask data')
+
+        games = getCookie("games")
+        victories = getCookie("victories")
+        defeats = getCookie("defeats")
+        streak = getCookie("streak")
+        biggest_streak = getCookie("biggest_streak")
+
+        $('.display_data .games').empty()
+        $('.display_data .victories').empty()
+        $('.display_data .streak').empty()
+        $('.display_data .biggest_streak').empty()
+
+        $('.display_data .games').append("<h2><i data-feather='hash'></i> " + String(parseInt(games)) + "</h2><p>jogos</p>")
+        if (parseInt(games) == 0) {
+            porc_vitorias = 0
+        } else {
+            porc_vitorias = ((parseFloat(victories))/(parseFloat(games)))*100
+        }
+        $('.display_data .victories').append("<h2><i data-feather='award'></i> " + String(porc_vitorias.toFixed(2)) + "%</h2><p>vitórias</p>")
+        $('.display_data .streak').append("<h2><i data-feather='trending-up'></i> " + String(parseInt(streak)) + "</h2><p>ofensiva</p>")
+        $('.display_data .biggest_streak').append("<h2><i data-feather='star'></i> " + String(biggest_streak) + "</h2><p>recorde</p>")
+
+        feather.replace()
+        
+        //$('.display_data .games').append("<h2><i data-feather='hash'></i> " + data["games"] + "</h2><p>jogos</p>")
+        //$('.display_data .victories').append("<h2><i data-feather='award'></i> " + data["porc_vitorias"] + "%</h2><p>vitórias</p>")
+        //$('.display_data .streak').append("<h2><i data-feather='trending-up'></i> " + data["ofensiva"] + "</h2><p>ofensiva</p>")
+        //$('.display_data .biggest_streak').append("<h2><i data-feather='star'></i> " + data["biggest_streak"] + "</h2><p>recorde</p>")
+        
+        $('.display_data').show()
     })
 
-    socket.on('send data', (data) => {
+    /*socket.on('send data', (data) => {
         $('.display_data .games').append("<h2><i data-feather='hash'></i> " + data["games"] + "</h2><p>jogos</p>")
         $('.display_data .victories').append("<h2><i data-feather='award'></i> " + data["porc_vitorias"] + "%</h2><p>vitórias</p>")
         $('.display_data .streak').append("<h2><i data-feather='trending-up'></i> " + data["ofensiva"] + "</h2><p>ofensiva</p>")
         $('.display_data .biggest_streak').append("<h2><i data-feather='star'></i> " + data["biggest_streak"] + "</h2><p>recorde</p>")
         $('.display_data').show()
-    })
+    })*/
 
     // Selects from wizard
 
@@ -269,8 +298,15 @@ $(document).ready(function(){
     // win
     socket.on('win', (data) => {
         curr_chance = $('.curr_chance')
+        i = 0
+        special = data["special"]
         curr_chance.children('.entry').each(function(){
-            $(this).animate({'background-color': '#A1C45A', 'border-color': '#A1C45A'}, 500)
+            if (i in special) {
+                $(this).empty()
+                $(this).append("<h2>" + special[i] + "</h2>")
+            }
+            $(this).animate({'background-color': 'rgb(0, 158, 115)', 'border-color': 'rgb(0, 158, 115)'}, 500)
+            i++
         })
 
         games = getCookie("games")
@@ -302,10 +338,15 @@ $(document).ready(function(){
         $('.win .time').prepend("<i data-feather='clock'></i> " + data["time"] + " min.")
         feather.replace()
         $('.result').show()
+        $('.win .word').append(data['word'])
         $('.win').show(500)
 
         const jsConfetti = new JSConfetti()
-        jsConfetti.addConfetti()
+        // confetti setup
+        jsConfetti.addConfetti({
+            emojis: ['🌈', '💥', '✨'],
+        })
+        //jsConfetti.addConfetti()
     })
 
     // word don't exist
