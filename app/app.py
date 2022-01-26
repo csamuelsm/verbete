@@ -107,7 +107,7 @@ def new_round(message):
 def check_words(message):
     global word_list
     guess = message['word'].lower()
-    #print("{} -- {}".format(session["word"], guess))
+    print("{} -- {}".format(session["word"], guess))
     w = session["word"].lower()
     special = {}
     if normalize_string(guess) in word_list:
